@@ -1,63 +1,38 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Uploads from './Uploads';
-import Notifications from './Notifications';
-import ActivityLogs from './ActivityLogs';
-import { LayoutDashboard, Upload, Bell, ListTodo, ArrowLeft } from 'lucide-react';
+import React from 'react';
 
 const Ipconfig = () => {
-  const [activeTab, setActiveTab] = useState('uploads');
-  const navigate = useNavigate();
-
-  const tabs = [
-    { id: 'uploads', label: 'Uploads', icon: <Upload size={20} /> },
-    { id: 'notifications', label: 'Notifications', icon: <Bell size={20} /> },
-    { id: 'logs', label: 'Activity Logs', icon: <ListTodo size={20} /> },
-  ];
-
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 flex">
-      {/* Sidebar */}
-      <aside className="w-64 bg-gray-800 border-r border-gray-700 p-6 flex flex-col">
-        <div className="flex items-center gap-2 mb-10">
-          <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center text-white">
-            <LayoutDashboard size={24} />
-          </div>
-          <span className="text-xl font-bold tracking-tight">Workspace</span>
+    <div className="min-h-screen bg-gray-900 text-green-400 p-12 font-mono">
+      <div className="max-w-4xl mx-auto bg-black border border-gray-700 rounded-lg shadow-2xl overflow-hidden">
+        <div className="bg-gray-800 px-4 py-2 border-b border-gray-700 flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-red-500"></div>
+          <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+          <div className="w-3 h-3 rounded-full bg-green-500"></div>
+          <span className="text-gray-400 text-xs ml-2">Terminal</span>
         </div>
-
-        <nav className="flex-1 space-y-2">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
-                activeTab === tab.id
-                  ? 'bg-green-500 text-white shadow-lg'
-                  : 'text-gray-400 hover:bg-gray-700 hover:text-gray-100'
-              }`}
+        <div className="p-8 space-y-4">
+          <h1 className="text-2xl font-bold border-b border-green-900 pb-2 uppercase tracking-widest text-green-500">
+            Terminal
+          </h1>
+          <div className="flex items-center gap-2">
+            <span className="text-blue-400">user@daily-hub:~$</span>
+            <span className="animate-pulse">_</span>
+          </div>
+          <p className="text-gray-400 leading-relaxed bg-gray-900/50 p-6 rounded border border-gray-800 italic">
+            "Terminal UI will be implemented later."
+          </p>
+          <div className="pt-8">
+            <button 
+              onClick={() => window.history.back()}
+              className="text-green-500 hover:text-green-300 transition-colors flex items-center gap-2"
             >
-              {tab.icon}
-              <span className="font-medium">{tab.label}</span>
+              <span>[</span>
+              <span className="underline">Back to Hub</span>
+              <span>]</span>
             </button>
-          ))}
-        </nav>
-
-        <button 
-          onClick={() => navigate('/')}
-          className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors mt-auto"
-        >
-          <ArrowLeft size={20} />
-          Back to Hub
-        </button>
-      </aside>
-
-      {/* Main Content */}
-      <main className="flex-1 p-10 overflow-y-auto">
-        {activeTab === 'uploads' && <Uploads />}
-        {activeTab === 'notifications' && <Notifications />}
-        {activeTab === 'logs' && <ActivityLogs />}
-      </main>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
