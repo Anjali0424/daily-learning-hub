@@ -51,7 +51,7 @@ const DailyMCQ = () => {
   if (result) return <ResultCard result={result} onRetry={() => navigate('/')} />;
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8 flex flex-col items-center">
+    <div className="min-h-screen bg-lavender-50 p-8 flex flex-col items-center">
       <div className="max-w-2xl w-full">
         <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">Daily MCQ Challenge</h2>
         {questions.map((q, index) => (
@@ -65,7 +65,7 @@ const DailyMCQ = () => {
         ))}
         <button
           onClick={handleSubmit}
-          className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-all shadow-lg mt-8"
+          className="w-full bg-lavender-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-lavender-700 transition-all shadow-lg mt-8"
         >
           Submit Answers
         </button>
