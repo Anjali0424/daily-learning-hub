@@ -69,6 +69,7 @@ const Notifications = () => {
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 <Calendar size={14} />
                 <span>{new Date(notif.createdAt).toLocaleString()}</span>
+                <h1>Try to build this notification page</h1>
               </div>
             </div>
           </div>
