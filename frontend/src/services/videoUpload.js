@@ -1,7 +1,6 @@
 import { supabase } from "../lib/supabase";
 
 export async function uploadVideoToSupabase(file) {
-
   const fileName = `${Date.now()}_${file.name}`;
 
   const { error } = await supabase.storage

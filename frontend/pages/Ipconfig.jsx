@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Calendar, Play, Search, Trash2, Upload } from 'lucide-react';
-import { deleteVideo, getVideoSubjects, getVideos, uploadVideo } from '../services/videoService';
+import { deleteVideo, getVideoSubjects, getVideos } from '../services/videoService';
+import { uploadVideoToSupabase } from "../src/services/videoUpload";
+import axios from 'axios';
 
 const today = new Date().toISOString().slice(0, 10);
 
@@ -81,34 +83,67 @@ const Ipconfig = () => {
     }));
   };
 
-  const handleUpload = async (event) => {
-    event.preventDefault();
-    setUploading(true);
-    setMessage('');
-    setError('');
+const handleUpload = async (event) => {
+  event.preventDefault();
 
-    try {
-      const response = await uploadVideo(form);
-      setForm({
-        title: '',
-        subject: '',
-        description: '',
-        uploadDate: today,
-        file: null,
-      });
-      event.target.reset();
-      setMessage('Video uploaded successfully.');
-      setSelectedVideo(response.data);
-      await Promise.all([loadVideos(), refreshSubjects()]);
-      setSearchDate('');
-      setSearchSubject('');
-    } catch (err) {
-      console.error('Error uploading video:', err);
-      setError(err.response?.data?.message || 'Unable to upload video.');
-    } finally {
-      setUploading(false);
-    }
-  };
+  setUploading(true);
+  setMessage('');
+  setError('');
+
+  try {
+    // Step 1: Upload directly to Supabase Storage
+    const videoUrl = await uploadVideoToSupabase(form.file);
+
+    // Step 2: Save metadata in backend
+    const response = await axios.post(
+      "http://localhost:2404/api/videos",
+      {
+        title: form.title,
+        subject: form.subject,
+        description: form.description,
+        uploadDate: form.uploadDate,
+        videoUrl: videoUrl,
+      }
+    );
+
+    setSelectedVideo(response.data.data);
+
+    setForm({
+      title: '',
+      subject: '',
+      description: '',
+      uploadDate: today,
+      file: null,
+    });
+
+    event.target.reset();
+
+    setMessage("Video uploaded successfully.");
+
+    setSearchDate('');
+    setSearchSubject('');
+
+    await Promise.all([
+      loadVideos(),
+      refreshSubjects(),
+    ]);
+
+  } catch (err) {
+
+    console.error(err);
+
+    setError(
+      err.response?.data?.message ||
+      err.message ||
+      "Upload failed"
+    );
+
+  } finally {
+
+    setUploading(false);
+
+  }
+};
 
   const handleDateSearch = async (event) => {
     const value = event.target.value;
