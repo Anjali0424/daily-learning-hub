@@ -8,7 +8,7 @@ const About = () => {
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
           <div className="bg-blue-600 p-12 text-center text-white">
             <Info size={64} className="mx-auto mb-4 opacity-50" />
-            <h1 className="text-4xl font-bold mb-2">Daily Learning Hub</h1>
+            <h1 className="text-4xl font-bold mb-2">Daily Learning Hub platform
             <p className="text-blue-100 text-lg">Your companion for continuous technical growth.</p>
           </div>
           
