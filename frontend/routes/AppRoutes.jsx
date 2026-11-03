@@ -17,8 +17,8 @@ const AppRoutes = () => {
         <Route path="/mcq/:moduleId" element={<DailyMCQ />} />
         <Route path="/ipconfig" element={<Ipconfig />} />
         <Route path="/notes" element={<Notes />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/.." element={<WebCompiler />} />
+        <Route path="/about" element={<About Us />} />
+        <Route path="/compiler" element={<WebCompiler />} />
       </Routes>
     </>
   );
