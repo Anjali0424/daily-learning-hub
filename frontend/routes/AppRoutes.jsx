@@ -18,7 +18,7 @@ const AppRoutes = () => {
         <Route path="/ipconfig" element={<Ipconfig />} />
         <Route path="/notes" element={<Notes />} />
         <Route path="/about" element={<About />} />
-        <Route path="/compiler" element={<WebCompiler />} />
+        <Route path="/.." element={<WebCompiler />} />
       </Routes>
     </>
   );
