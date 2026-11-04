@@ -62,7 +62,7 @@ const Home = () => {
         {workspaceStatus.unlocked ? (
           <span className="text-lg font-bold">&</span>
         ) : (
-          <Lock size={16} />
+          <Lock size={15} />
         )}
       </button>
     </div>
